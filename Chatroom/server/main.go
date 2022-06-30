@@ -32,14 +32,14 @@ func process(conn net.Conn) {
 	//这里需要延时关闭conn
 	defer conn.Close()
 	//循环的读客户端发送的信息
+	buf := make([]byte, 1024*4)
 	for {
-		buf := make([]byte, 1024*4)
 		fmt.Println("等待读取...")
-		n, err := conn.Read(buf[:4])
-		if n != 4 || err != nil {
+		_, err := conn.Read(buf[:4])
+		if err != nil {
 			fmt.Println("conn.Read err:", err)
 			return
 		}
-		fmt.Println("读到的buf=", buf)
+		fmt.Println("读到的buf = ", buf[:4])
 	}
 }
