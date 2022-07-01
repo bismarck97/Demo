@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net"
+	"time"
 )
 
 //写一个函数，完成登录校验
@@ -63,6 +64,17 @@ func login(userID int, userPwd string) (err error) {
 		fmt.Println("conn.Write(bytes[:]) fail", err)
 		return
 	}
-	fmt.Println("客户端发送消息长度为:%d 内容为:%s\n", len(data), string(data))
+	//fmt.Printf("客户端发送消息长度为:%d 内容为:%s\n", len(data), string(data))
+
+	//发送消息本身
+	_, err = conn.Write(data)
+	if err != nil {
+		fmt.Println("conn.Write(data) fail", err)
+		return
+	}
+	//休眠20秒
+	time.Sleep(20 * time.Second)
+	fmt.Println("休眠20秒...")
+	//还需要处理服务器端返回的消息
 	return
 }
