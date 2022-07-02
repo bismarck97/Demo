@@ -2,7 +2,6 @@ package main
 
 import (
 	"Demo/Chatroom/common/message"
-	"Demo/Chatroom/utils"
 	json "encoding/json"
 	"fmt"
 	"net"
@@ -51,7 +50,7 @@ func login(userID int, userPwd string) (err error) {
 	//7.到这个时候，data就是我们要发送的消息
 	//7.1 先把data的长度发送给服务器
 	//先获取到data的长度->转成一个表示长度的byte切片
-	err = utils.WritePkg(conn, data)
+	err = WritePkg(conn, data)
 	if err != nil {
 		return err
 	}
@@ -60,7 +59,7 @@ func login(userID int, userPwd string) (err error) {
 	//time.Sleep(20 * time.Second)
 	//fmt.Println("休眠20秒...")
 	//还需要处理服务器端返回的消息
-	mes, err = utils.ReadPkg(conn) //mes就是
+	mes, err = ReadPkg(conn) //mes就是
 	if err != nil {
 		fmt.Println("ReadPkg(conn) err:", err)
 		return
